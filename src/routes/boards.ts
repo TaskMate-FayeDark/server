@@ -2,16 +2,23 @@ import express from "express";
 import BoardsController from "../controllers/BoardsController";
 import authMiddleware from "../middleware/AuthMiddleware";
 
-const router= express.Router();
+const router = express.Router();
 
 /**
  * @swagger
- * /boards/:
+ * /boards/{userId}/:
  *   get:
  *     tags:
  *       - Boards
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *         - in: path
+ *           name: userId
+ *           required: true
+ *           schema:
+ *             type: string
+ *           description: "ID user in board"
  *     responses:
  *       200:
  *         description: Getting boards
@@ -71,7 +78,7 @@ const router= express.Router();
  *                  type: string
  *                  example: "Server error"
  */
-router.get("/",authMiddleware, BoardsController.getAllBoards);
+router.get("/:userId", authMiddleware, BoardsController.getAllBoards);
 
 /**
  * @swagger
@@ -96,6 +103,7 @@ router.get("/",authMiddleware, BoardsController.getAllBoards);
  *                 type: string
  *               viewing_rights:
  *                 type: string
+ *                 example: "private || public"
  *               created_by:
  *                 type: number
  *                 example: 2
@@ -160,7 +168,7 @@ router.get("/",authMiddleware, BoardsController.getAllBoards);
  *                  type: string
  *                  example: "Server error"
  */
-router.post("/create",authMiddleware, BoardsController.createBoard);
+router.post("/create", authMiddleware, BoardsController.createBoard);
 
 /**
  * @swagger
@@ -238,7 +246,7 @@ router.post("/create",authMiddleware, BoardsController.createBoard);
  *                  type: string
  *                  example: "Server error"
  */
-router.get(`/:boardId`, authMiddleware, BoardsController.getBoardById);
+router.get(`/`, authMiddleware, BoardsController.getBoardById);
 
 /**
  * @swagger
@@ -264,6 +272,8 @@ router.get(`/:boardId`, authMiddleware, BoardsController.getBoardById);
  *             properties:
  *               name:
  *                 type: string
+ *               userId:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Updated boards

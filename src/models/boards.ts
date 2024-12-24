@@ -1,4 +1,4 @@
-import {DataTypes, Model, Optional} from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
 
 export interface BoardAttributes {
@@ -10,12 +10,15 @@ export interface BoardAttributes {
     created_at: Date;
     updated_at: Date;
     due_date: Date;
-
 }
 
-export interface BoardCreationAttributes extends Optional<BoardAttributes, "description"> {}
+export interface BoardCreationAttributes
+    extends Optional<BoardAttributes, "id"> {}
 
-class Board extends Model<BoardAttributes, BoardCreationAttributes> implements BoardAttributes {
+class Board
+    extends Model<BoardAttributes, BoardCreationAttributes>
+    implements BoardAttributes
+{
     public id!: string;
     public name!: string;
     public description!: string;
@@ -30,42 +33,42 @@ Board.init(
     {
         id: {
             type: DataTypes.STRING,
-            primaryKey: true
+            primaryKey: true,
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
         },
         viewing_rights: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         due_date: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
         },
         created_by: {
             type: DataTypes.NUMBER,
-            allowNull: false
+            allowNull: false,
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
         },
         updated_at: {
             type: DataTypes.DATE,
-            allowNull: true
-        }
+            allowNull: true,
+        },
     },
     {
         sequelize,
         tableName: "boards",
         timestamps: false,
     }
-)
+);
 
 export default Board;
