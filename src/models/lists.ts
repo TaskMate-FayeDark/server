@@ -1,5 +1,6 @@
 import { Optional, Model, DataTypes } from "sequelize";
 import sequelize from "../config/config";
+import Board from "./boards";
 
 interface ListsAttributes {
   id: string;
@@ -45,6 +46,12 @@ List.init(
     board_id: {
       type: DataTypes.STRING,
       allowNull: false,
+      references: {
+        model: Board,
+        key: "id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     due_date: {
       type: DataTypes.DATE,
