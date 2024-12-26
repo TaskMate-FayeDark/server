@@ -46,7 +46,7 @@ class BoardsController {
       return;
     }
     const userId = req.user.userId;
-    const boardData = await BoardsService.getBoardById(boardId, userId);
+    const boardData = await BoardsService.getBoardById(boardId);
     const searchedBoardUser = await BoardUser.findOne({
       where: {
         board_id: boardId,
