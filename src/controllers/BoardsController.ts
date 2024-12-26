@@ -191,12 +191,6 @@ class BoardsController {
         user_id: userId,
       },
     });
-    if (!roleView) {
-      res
-        .status(403)
-        .json({ message: "You are not allowed to view this board" });
-      return;
-    }
     if (!result) {
       res.status(500).json({ message: "Unexpected error occurred" });
       return;
@@ -205,11 +199,21 @@ class BoardsController {
       res.status(500).json({ message: result.message });
       return;
     }
+    if (!result.data) {
+      res.status(404).json({ message: "Board not found" });
+      return;
+    }
+    if (!roleView && result.data.viewing_rights === "private") {
+      res
+        .status(403)
+        .json({ message: "You are not allowed to view this board" });
+      return;
+    }
     res.status(200).json({
       message: "Getting board",
       data: result.data,
       member: result.member,
-      role: roleView.role,
+      role: roleView && roleView.role,
     });
     return;
   }
