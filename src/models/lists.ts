@@ -10,7 +10,6 @@ interface ListsAttributes {
   board_id: string;
   created_at: Date;
   updated_at: Date;
-  color: string;
 }
 
 interface ListsCreationAttributes extends Optional<ListsAttributes, "id"> {}
@@ -26,7 +25,6 @@ class List
   public board_id!: string;
   public created_at!: Date;
   public updated_at!: Date;
-  public color!: string;
 }
 
 List.init(
@@ -63,10 +61,6 @@ List.init(
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
-    color: {
-      type: DataTypes.STRING,
       allowNull: true,
     },
   },

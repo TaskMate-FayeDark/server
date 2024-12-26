@@ -184,7 +184,19 @@ class BoardsController {
       return;
     }
     const userId = req.user.userId;
-    const result = await BoardsService.getBoardById(boardId, userId);
+    const result = await BoardsService.getBoardById(boardId);
+    const roleView = await BoardUser.findOne({
+      where: {
+        board_id: boardId,
+        user_id: userId,
+      },
+    });
+    if (!roleView) {
+      res
+        .status(403)
+        .json({ message: "You are not allowed to view this board" });
+      return;
+    }
     if (!result) {
       res.status(500).json({ message: "Unexpected error occurred" });
       return;
@@ -197,6 +209,7 @@ class BoardsController {
       message: "Getting board",
       data: result.data,
       member: result.member,
+      role: roleView.role,
     });
     return;
   }

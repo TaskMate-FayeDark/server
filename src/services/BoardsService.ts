@@ -41,7 +41,7 @@ class BoardsService {
     }
   }
 
-  public static async getBoardById(boardId: string, userId: number) {
+  public static async getBoardById(boardId: string) {
     try {
       const board = await Board.findOne({
         where: { id: boardId },
