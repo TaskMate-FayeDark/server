@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth";
 import boardRouter from "./routes/boards";
 import listsRouter from "./routes/lists";
+import assignedRouter from "./routes/assigned";
 import cors from "cors";
 
 dotenv.config();
@@ -52,6 +53,7 @@ app.use("/api", SwaggerUI.serve, SwaggerUI.setup(swaggerDocs));
 app.use("/auth", authRouter);
 app.use("/boards", boardRouter);
 app.use("/lists", listsRouter);
+app.use("/assigned", assignedRouter);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {

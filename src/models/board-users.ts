@@ -8,6 +8,7 @@ interface BoardUserAttributes {
   user_id: number;
   role: string;
   added_at: Date;
+  is_assign: boolean;
 }
 
 interface BoardUserCreateAttributes
@@ -22,6 +23,7 @@ class BoardUser
   public user_id!: number;
   public role!: string;
   public added_at!: Date;
+  public is_assign!: boolean;
 }
 
 BoardUser.init(
@@ -57,6 +59,10 @@ BoardUser.init(
     },
     added_at: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    is_assign: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

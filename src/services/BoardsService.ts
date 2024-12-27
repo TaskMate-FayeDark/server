@@ -56,6 +56,7 @@ class BoardsService {
       const memberBoard = await BoardUser.findAll({
         where: {
           board_id: boardId,
+          is_assign: true,
         },
       });
       const idMember = memberBoard
@@ -82,6 +83,7 @@ class BoardsService {
         user_id: userId,
         role: "creator",
         added_at: new Date(),
+        is_assign: false,
       };
       await BoardUser.create(newBoardUser);
       return { success: true, data: newBoard };
