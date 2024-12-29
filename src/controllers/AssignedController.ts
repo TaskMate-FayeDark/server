@@ -93,12 +93,18 @@ class AssignedController {
       }
       const propsEmail = {
         to: email_user,
-        subject: "Invitation to board",
-        text: `You have been invited to the board ${findBoard.name} by ${
-          findUserInvite.name
-        }. Click the link to confirm: ${
-          process.env.LINK_CONFIRM_ASSIGN_BOARD + path_link_confirm
-        }`,
+        subject: "Invitation to board [Task Manager]",
+        text: `
+Dear ${findUser.name},
+
+I'd like to invite you to join our [Task Manager] board to easily manage tasks and projects.
+
+Please click the link below to get started:
+${process.env.LINK_CONFIRM_ASSIGN_BOARD + path_link_confirm}
+
+Feel free to reach out if you have any questions.
+
+Best regards,`,
       };
       await sendEmail(propsEmail.to, propsEmail.subject, propsEmail.text);
       await BoardUser.create({

@@ -8,6 +8,7 @@ interface NotificationAttributes {
   message: string;
   user_id: number;
   created_at: Date;
+  name: string;
 }
 
 interface NotificationCreatedAttributes
@@ -22,6 +23,7 @@ class Notification
   public user_id!: number;
   public created_at!: Date;
   public is_read!: boolean;
+  public name!: string;
 }
 
 Notification.init(
@@ -52,6 +54,10 @@ Notification.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,
@@ -59,3 +65,5 @@ Notification.init(
     timestamps: false,
   }
 );
+
+export default Notification;

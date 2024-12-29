@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import List from "../models/lists";
 import BoardUser from "../models/board-users";
+import { v4 as uuidv4 } from "uuid";
 
 class ListController {
   public static async getAllLists(req: Request, res: Response): Promise<void> {
@@ -61,6 +62,7 @@ class ListController {
         },
       })) as number;
       const newList = await List.create({
+        id: uuidv4(),
         name,
         position: maxPosition + 1 || 1,
         due_date,
